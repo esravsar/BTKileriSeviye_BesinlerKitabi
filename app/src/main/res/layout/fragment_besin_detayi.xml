@@ -3,21 +3,72 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".BesinDetayiFragment">
 
-        <Button
-            android:id="@+id/besin_detayi_button"
+        <ImageView
+            android:id="@+id/ivDetayBesinImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:minHeight="200dp"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/ic_launcher_background"
+            android:layout_margin="10dp"/>
+
+        <TextView
+            android:id="@+id/tvDetayBesinIsim"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Besin Listesine Git"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_below="@id/ivDetayBesinImage"
+            android:text="Besin Ismi"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="7dp"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/tvDetayBesinKalori"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvDetayBesinIsim"
+            android:text="Besin Kalorisi"
+            android:textSize="18sp"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="7dp"/>
+
+        <TextView
+            android:id="@+id/tvDetayBesinKarbonhidrat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvDetayBesinKalori"
+            android:text="Besin Karbonhidratı"
+            android:textSize="18sp"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="7dp"/>
+
+        <TextView
+            android:id="@+id/tvDetayBesinProtein"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvDetayBesinKarbonhidrat"
+            android:text="Besin Proteini"
+            android:textSize="18sp"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="7dp"/>
+
+        <TextView
+            android:id="@+id/tvDetayBesinYag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvDetayBesinProtein"
+            android:text="Besin Yağı"
+            android:textSize="18sp"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="7dp"/>
+
+    </RelativeLayout>
 
 </layout>
