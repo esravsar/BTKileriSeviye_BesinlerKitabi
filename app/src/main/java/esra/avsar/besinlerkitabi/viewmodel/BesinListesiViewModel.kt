@@ -3,6 +3,11 @@ package esra.avsar.besinlerkitabi.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import esra.avsar.besinlerkitabi.model.Besin
+import esra.avsar.besinlerkitabi.servis.BesinAPIServis
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.observers.DisposableSingleObserver
+import io.reactivex.schedulers.Schedulers
 
 /**
  * Created by EsraAvsar on 26.01.2023.
@@ -12,15 +17,37 @@ class BesinListesiViewModel : ViewModel() {
     val besinHataMesaji = MutableLiveData<Boolean>()
     val besinYukleniyor = MutableLiveData<Boolean>()
 
+    private val besinApiServis = BesinAPIServis()
+    private val disposable = CompositeDisposable()
+
     fun refreshData() {
-        val muz = Besin("Muz", "100", "10", "5", "1", "www.test.com")
-        val cilek = Besin("Çilek", "200", "20", "10", "2", "www.test.com")
-        val elma = Besin("Elma", "300", "30", "15", "3", "www.test.com")
+        verileriInternettenAl()
+    }
 
-        val besinListesi = arrayListOf<Besin>(muz, cilek, elma)
+    private fun verileriInternettenAl() {
+        besinYukleniyor.value = true
 
-        besinler.value = besinListesi
-        besinHataMesaji.value = false
-        besinYukleniyor.value = false
+        //IO, Default, UI
+
+        disposable.add(
+            besinApiServis.getData()
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(object : DisposableSingleObserver<List<Besin>>() {
+                    override fun onSuccess(t: List<Besin>) {
+                        //Başarılı olursa
+                        besinler.value = t
+                        besinHataMesaji.value = false
+                        besinYukleniyor.value = false
+                    }
+
+                    override fun onError(e: Throwable) {
+                        //Hata alırsak
+                        besinHataMesaji.value = true
+                        besinYukleniyor.value = false
+                        e.printStackTrace()
+                    }
+                })
+        )
     }
 }
