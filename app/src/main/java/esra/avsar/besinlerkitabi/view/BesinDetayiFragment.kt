@@ -1,14 +1,15 @@
-package esra.avsar.besinlerkitabi
+package esra.avsar.besinlerkitabi.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.Navigation
-import kotlinx.android.synthetic.main.fragment_besin_listesi.*
+import esra.avsar.besinlerkitabi.R
 
-class BesinListesiFragment : Fragment() {
+class BesinDetayiFragment : Fragment() {
+
+    private var besinId = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,16 +20,15 @@ class BesinListesiFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_besin_listesi, container, false)
+        return inflater.inflate(R.layout.fragment_besin_detayi, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        besin_listesi_button.setOnClickListener {
-            val action = BesinListesiFragmentDirections.actionBesinListesiFragmentToBesinDetayiFragment()
-            action.besinId = 3
-            Navigation.findNavController(it).navigate(action)
+        arguments?.let {
+            besinId = BesinDetayiFragmentArgs.fromBundle(it).besinId
+            println(besinId)
         }
     }
 }
