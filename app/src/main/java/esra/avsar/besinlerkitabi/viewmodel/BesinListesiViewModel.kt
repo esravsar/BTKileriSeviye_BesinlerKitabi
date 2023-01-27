@@ -1,8 +1,8 @@
 package esra.avsar.besinlerkitabi.viewmodel
 
 import android.app.Application
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import esra.avsar.besinlerkitabi.model.Besin
 import esra.avsar.besinlerkitabi.servis.BesinAPIServis
 import esra.avsar.besinlerkitabi.servis.BesinDatabase
@@ -20,13 +20,35 @@ class BesinListesiViewModel(application: Application) : BaseViewModel(applicatio
     val besinler = MutableLiveData<List<Besin>>()
     val besinHataMesaji = MutableLiveData<Boolean>()
     val besinYukleniyor = MutableLiveData<Boolean>()
+    private val guncellemeZamani = 10 * 60 * 1000 * 1000 * 1000L
 
     private val besinApiServis = BesinAPIServis()
     private val disposable = CompositeDisposable()
     private val ozelSharedPreferences = OzelSharedPreferences(getApplication())
 
     fun refreshData() {
+
+        val kaydedilmeZamani = ozelSharedPreferences.zamaniAl()
+        if (kaydedilmeZamani != null && kaydedilmeZamani != 0L && System.nanoTime() - kaydedilmeZamani < guncellemeZamani) {
+            //Sqlite'tan çek
+            verileriSQLitetanAl()
+        } else {
+            verileriInternettenAl()
+        }
+    }
+
+    fun refreshFromInternet() {
         verileriInternettenAl()
+    }
+
+    private fun verileriSQLitetanAl() {
+        besinYukleniyor.value = true
+        
+        launch { 
+            val besinListesi = BesinDatabase(getApplication()).besinDAO().getAllBesin()    
+            besinleriGoster(besinListesi)
+            Toast.makeText(getApplication(), "Besinleri Room'dan Aldık", Toast.LENGTH_LONG).show()
+        }
     }
 
     private fun verileriInternettenAl() {
@@ -42,6 +64,7 @@ class BesinListesiViewModel(application: Application) : BaseViewModel(applicatio
                     override fun onSuccess(t: List<Besin>) {
                         //Başarılı olursa
                         sqliteSakla(t)
+                        Toast.makeText(getApplication(), "Besinleri Internet'ten Aldık", Toast.LENGTH_LONG).show()
                     }
 
                     override fun onError(e: Throwable) {

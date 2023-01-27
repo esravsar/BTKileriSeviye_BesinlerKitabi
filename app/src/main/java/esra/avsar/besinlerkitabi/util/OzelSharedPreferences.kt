@@ -34,4 +34,6 @@ class OzelSharedPreferences {
             putLong(ZAMAN, zaman)
         }
     }
+
+    fun zamaniAl() = sharedPreferences?.getLong(ZAMAN, 0)
 }
