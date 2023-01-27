@@ -38,7 +38,7 @@ class BesinRecyclerAdapter(val besinListesi : ArrayList<Besin>) : RecyclerView.A
 
         holder.itemView.setOnClickListener {
             val action = BesinListesiFragmentDirections.actionBesinListesiFragmentToBesinDetayiFragment()
-            action.besinId = 0
+            action.besinId = besinListesi.get(position).uuid
             Navigation.findNavController(it).navigate(action)
         }
 
