@@ -7,6 +7,8 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import esra.avsar.besinlerkitabi.R
 import esra.avsar.besinlerkitabi.model.Besin
+import esra.avsar.besinlerkitabi.util.gorselIndir
+import esra.avsar.besinlerkitabi.util.placeHolderYap
 import esra.avsar.besinlerkitabi.view.BesinListesiFragmentDirections
 import kotlinx.android.synthetic.main.besin_recycler_row.view.*
 
@@ -39,6 +41,8 @@ class BesinRecyclerAdapter(val besinListesi : ArrayList<Besin>) : RecyclerView.A
             action.besinId = 0
             Navigation.findNavController(it).navigate(action)
         }
+
+        holder.itemView.ivItemImage.gorselIndir(besinListesi.get(position).besinGorsel, placeHolderYap(holder.itemView.context))
     }
 
     fun besinListesiniGuncelle(yeniBesinListesi: List<Besin>) {
