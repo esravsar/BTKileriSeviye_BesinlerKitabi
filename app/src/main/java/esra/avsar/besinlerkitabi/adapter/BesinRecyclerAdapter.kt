@@ -3,9 +3,11 @@ package esra.avsar.besinlerkitabi.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import esra.avsar.besinlerkitabi.R
+import esra.avsar.besinlerkitabi.databinding.BesinRecyclerRowBinding
 import esra.avsar.besinlerkitabi.model.Besin
 import esra.avsar.besinlerkitabi.util.gorselIndir
 import esra.avsar.besinlerkitabi.util.placeHolderYap
@@ -17,13 +19,14 @@ import kotlinx.android.synthetic.main.besin_recycler_row.view.*
  */
 class BesinRecyclerAdapter(val besinListesi : ArrayList<Besin>) : RecyclerView.Adapter<BesinRecyclerAdapter.BesinViewHolder>() {
 
-    class BesinViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
+    class BesinViewHolder(var view : BesinRecyclerRowBinding) : RecyclerView.ViewHolder(view.root) {
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BesinViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val view = inflater.inflate(R.layout.besin_recycler_row, parent, false)
+//        val view = inflater.inflate(R.layout.besin_recycler_row, parent, false)
+        val view = DataBindingUtil.inflate<BesinRecyclerRowBinding>(inflater, R.layout.besin_recycler_row, parent, false)
         return BesinViewHolder(view)
     }
 
@@ -32,9 +35,11 @@ class BesinRecyclerAdapter(val besinListesi : ArrayList<Besin>) : RecyclerView.A
     }
 
     override fun onBindViewHolder(holder: BesinViewHolder, position: Int) {
+
+        holder.view.besin = besinListesi[position]
+        /*
         holder.itemView.tvItemBesinIsmi.text = besinListesi.get(position).besinIsim
         holder.itemView.tvItemBesinKalorisi.text = besinListesi.get(position).besinKalori
-        //görsel kısmı eklenecek
 
         holder.itemView.setOnClickListener {
             val action = BesinListesiFragmentDirections.actionBesinListesiFragmentToBesinDetayiFragment()
@@ -43,6 +48,7 @@ class BesinRecyclerAdapter(val besinListesi : ArrayList<Besin>) : RecyclerView.A
         }
 
         holder.itemView.ivItemImage.gorselIndir(besinListesi.get(position).besinGorsel, placeHolderYap(holder.itemView.context))
+        */
     }
 
     fun besinListesiniGuncelle(yeniBesinListesi: List<Besin>) {
