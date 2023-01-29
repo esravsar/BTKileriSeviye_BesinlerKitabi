@@ -20,7 +20,7 @@
             android:layout_height="match_parent"
             android:layout_margin="3dp"
             android:layout_weight="2"
-            app:srcCompat="@drawable/ic_launcher_background"/>
+            android:downloadImage="@{besin.besinGorsel}"/>
 
         <LinearLayout
             android:layout_width="0dp"
