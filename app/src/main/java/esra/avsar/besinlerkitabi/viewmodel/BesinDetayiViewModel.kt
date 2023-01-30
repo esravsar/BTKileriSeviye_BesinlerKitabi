@@ -2,7 +2,6 @@ package esra.avsar.besinlerkitabi.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import esra.avsar.besinlerkitabi.model.Besin
 import esra.avsar.besinlerkitabi.servis.BesinDatabase
 import kotlinx.coroutines.launch

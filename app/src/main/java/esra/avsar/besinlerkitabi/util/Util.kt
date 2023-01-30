@@ -32,6 +32,6 @@ fun placeHolderYap(context: Context) : CircularProgressDrawable {
 }
 
 @BindingAdapter("android:downloadImage")
-fun downloadImage(view: ImageView, url: String) {
+fun downloadImage(view: ImageView, url: String?) {
     view.gorselIndir(url, placeHolderYap(view.context))
 }

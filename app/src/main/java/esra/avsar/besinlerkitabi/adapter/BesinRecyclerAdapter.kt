@@ -9,11 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import esra.avsar.besinlerkitabi.R
 import esra.avsar.besinlerkitabi.databinding.BesinRecyclerRowBinding
 import esra.avsar.besinlerkitabi.model.Besin
-import esra.avsar.besinlerkitabi.util.gorselIndir
-import esra.avsar.besinlerkitabi.util.placeHolderYap
 import esra.avsar.besinlerkitabi.view.BesinListesiFragmentDirections
 import kotlinx.android.synthetic.main.besin_recycler_row.view.*
-import kotlinx.android.synthetic.main.fragment_besin_listesi.view.*
 
 /**
  * Created by EsraAvsar on 26.01.2023.
