@@ -7,12 +7,24 @@
         <variable
             name="besin"
             type="esra.avsar.besinlerkitabi.model.Besin" />
+
+        <variable
+            name="listener"
+            type="esra.avsar.besinlerkitabi.adapter.BesinClickListener" />
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:onClick="@{listener::besinTiklandi}">
+
+        <TextView
+            android:id="@+id/besin_uuid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:text="@{String.valueOf(besin.uuid)}"/>
 
         <ImageView
             android:id="@+id/ivItemImage"

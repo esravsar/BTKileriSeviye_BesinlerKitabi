@@ -13,11 +13,12 @@ import esra.avsar.besinlerkitabi.util.gorselIndir
 import esra.avsar.besinlerkitabi.util.placeHolderYap
 import esra.avsar.besinlerkitabi.view.BesinListesiFragmentDirections
 import kotlinx.android.synthetic.main.besin_recycler_row.view.*
+import kotlinx.android.synthetic.main.fragment_besin_listesi.view.*
 
 /**
  * Created by EsraAvsar on 26.01.2023.
  */
-class BesinRecyclerAdapter(val besinListesi : ArrayList<Besin>) : RecyclerView.Adapter<BesinRecyclerAdapter.BesinViewHolder>() {
+class BesinRecyclerAdapter(val besinListesi : ArrayList<Besin>) : RecyclerView.Adapter<BesinRecyclerAdapter.BesinViewHolder>(),BesinClickListener {
 
     class BesinViewHolder(var view : BesinRecyclerRowBinding) : RecyclerView.ViewHolder(view.root) {
 
@@ -37,6 +38,8 @@ class BesinRecyclerAdapter(val besinListesi : ArrayList<Besin>) : RecyclerView.A
     override fun onBindViewHolder(holder: BesinViewHolder, position: Int) {
 
         holder.view.besin = besinListesi[position]
+        holder.view.listener = this
+
         /*
         holder.itemView.tvItemBesinIsmi.text = besinListesi.get(position).besinIsim
         holder.itemView.tvItemBesinKalorisi.text = besinListesi.get(position).besinKalori
@@ -55,5 +58,15 @@ class BesinRecyclerAdapter(val besinListesi : ArrayList<Besin>) : RecyclerView.A
         besinListesi.clear()
         besinListesi.addAll(yeniBesinListesi)
         notifyDataSetChanged()
+    }
+
+    override fun besinTiklandi(view: View) {
+        val uuid = view.besin_uuid.text.toString().toIntOrNull()
+        uuid?.let {
+            val action = BesinListesiFragmentDirections.actionBesinListesiFragmentToBesinDetayiFragment()
+            action.besinId = it
+            Navigation.findNavController(view).navigate(action)
+        }
+
     }
 }
